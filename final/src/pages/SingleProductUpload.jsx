@@ -1693,6 +1693,7 @@ const SingleProductUpload = React.memo(() => {
         // Apply nesting logic - copy all data from first variant
         const firstVariant = variants[0];
         if (firstVariant) {
+          handleVariantChange(variantId, "productName", firstVariant?.productName || "");
           handleVariantChange(variantId, "title", firstVariant?.title || "");
           handleVariantChange(
             variantId,
@@ -1770,6 +1771,13 @@ const SingleProductUpload = React.memo(() => {
           const firstVariant = variants[0];
           if (firstVariant) {
             switch (field) {
+              case "productName":
+                handleVariantChange(
+                  variantId,
+                  "productName",
+                  firstVariant?.productName || ""
+                );
+                break;
               case "title":
                 handleVariantChange(
                   variantId,
@@ -3660,6 +3668,26 @@ const SingleProductUpload = React.memo(() => {
                                 type="checkbox"
                                 checked={
                                   Array.isArray(nestingOptions[variant.id]) &&
+                                  nestingOptions[variant.id]?.includes("productName")
+                                }
+                                onChange={(e) =>
+                                  handleIndividualNestingChange(
+                                    variant.id,
+                                    "productName",
+                                    e.target.checked
+                                  )
+                                }
+                                className="w-4 h-4 text-blue-600"
+                              />
+                              <span className="text-[14px] text-[#111111] font-['Montserrat']">
+                                Product Name
+                              </span>
+                            </label>
+                            <label className="flex items-center gap-2 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={
+                                  Array.isArray(nestingOptions[variant.id]) &&
                                   nestingOptions[variant.id]?.includes("title")
                                 }
                                 onChange={(e) =>
@@ -3805,7 +3833,14 @@ const SingleProductUpload = React.memo(() => {
                     {/* Product Name */}
                     <div>
                       <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
-                        product name
+                        Product name
+                        {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                          (Array.isArray(nestingOptions[variant.id]) &&
+                            nestingOptions[variant.id]?.includes("productName"))) && (
+                          <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                            Copied from Article 1
+                          </span>
+                        )}
                       </label>
                       <div className="w-full max-w-[400px]">
                         <input
@@ -3820,11 +3855,6 @@ const SingleProductUpload = React.memo(() => {
                           }
                           className="w-full h-[40px] px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-[14px] bg-white font-['Montserrat']"
                           placeholder={`Enter product name for variant ${variantNumber}`}
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("productName"))
-                          }
                         />
                       </div>
                     </div>
@@ -3833,6 +3863,13 @@ const SingleProductUpload = React.memo(() => {
                     <div>
                       <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
                         Title
+                        {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                          (Array.isArray(nestingOptions[variant.id]) &&
+                            nestingOptions[variant.id]?.includes("title"))) && (
+                          <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                            Copied from Article 1
+                          </span>
+                        )}
                       </label>
                       <div className="w-full max-w-[400px]">
                         <input
@@ -3847,11 +3884,6 @@ const SingleProductUpload = React.memo(() => {
                           }
                           className="w-full h-[40px] px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-[14px] bg-white font-['Montserrat']"
                           placeholder={`Enter title for variant ${variantNumber}`}
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("title"))
-                          }
                         />
                       </div>
                     </div>
@@ -3860,6 +3892,13 @@ const SingleProductUpload = React.memo(() => {
                     <div>
                       <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
                         Description
+                        {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                          (Array.isArray(nestingOptions[variant.id]) &&
+                            nestingOptions[variant.id]?.includes("description"))) && (
+                          <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                            Copied from Article 1
+                          </span>
+                        )}
                       </label>
                       <div className="w-full max-w-[500px]">
                         <textarea
@@ -3873,11 +3912,6 @@ const SingleProductUpload = React.memo(() => {
                           }
                           className="w-full h-[100px] px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-1 focus:ring-blue-500 text-[14px] bg-white font-['Montserrat']"
                           placeholder={`Enter description for variant ${variantNumber}`}
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("description"))
-                          }
                         />
                       </div>
                     </div>
@@ -3886,6 +3920,13 @@ const SingleProductUpload = React.memo(() => {
                     <div>
                       <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
                         Manufacturing details
+                        {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                          (Array.isArray(nestingOptions[variant.id]) &&
+                            nestingOptions[variant.id]?.includes("manufacturingDetails"))) && (
+                          <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                            Copied from Article 1
+                          </span>
+                        )}
                       </label>
                       <div className="w-full max-w-[500px]">
                         <textarea
@@ -3899,11 +3940,6 @@ const SingleProductUpload = React.memo(() => {
                           }
                           className="w-full h-[100px] px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-1 focus:ring-blue-500 text-[14px] bg-white font-['Montserrat']"
                           placeholder={`Enter manufacturing details for variant ${variantNumber}`}
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("manufacturingDetails"))
-                          }
                         />
                       </div>
                     </div>
@@ -3912,6 +3948,13 @@ const SingleProductUpload = React.memo(() => {
                     <div>
                       <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
                         Shipping returns and exchange
+                        {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                          (Array.isArray(nestingOptions[variant.id]) &&
+                            nestingOptions[variant.id]?.includes("shippingReturns"))) && (
+                          <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                            Copied from Article 1
+                          </span>
+                        )}
                       </label>
                       <div className="w-full max-w-[500px]">
                         <textarea
@@ -3925,11 +3968,6 @@ const SingleProductUpload = React.memo(() => {
                           }
                           className="w-full h-[100px] px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-1 focus:ring-blue-500 text-[14px] bg-white font-['Montserrat']"
                           placeholder={`Enter shipping and returns policy for variant ${variantNumber}`}
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("shippingReturns"))
-                          }
                         />
                       </div>
                     </div>
@@ -3939,6 +3977,13 @@ const SingleProductUpload = React.memo(() => {
                       <div>
                         <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
                           Regular price
+                          {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                            (Array.isArray(nestingOptions[variant.id]) &&
+                              nestingOptions[variant.id]?.includes("regularPrice"))) && (
+                            <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-1 py-0.5 rounded">
+                              Copied
+                            </span>
+                          )}
                         </label>
                         <input
                           type="number"
@@ -3952,16 +3997,18 @@ const SingleProductUpload = React.memo(() => {
                           }
                           className="w-full h-[40px] px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-[14px] bg-white font-['Montserrat']"
                           placeholder="0.00"
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("regularPrice"))
-                          }
                         />
                       </div>
                       <div>
                         <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
                           Sale price
+                          {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                            (Array.isArray(nestingOptions[variant.id]) &&
+                              nestingOptions[variant.id]?.includes("salePrice"))) && (
+                            <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-1 py-0.5 rounded">
+                              Copied
+                            </span>
+                          )}
                         </label>
                         <input
                           type="number"
@@ -3975,11 +4022,6 @@ const SingleProductUpload = React.memo(() => {
                           }
                           className="w-full h-[40px] px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-[14px] bg-white font-['Montserrat']"
                           placeholder="0.00"
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("salePrice"))
-                          }
                         />
                       </div>
                     </div>
@@ -3988,6 +4030,13 @@ const SingleProductUpload = React.memo(() => {
                     <div className="mb-6">
                       <label className="block text-[14px] font-medium text-[#111111] font-['Montserrat'] mb-2">
                         Stock size - Variant {variantNumber}
+                        {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                          (Array.isArray(nestingOptions[variant.id]) &&
+                            nestingOptions[variant.id]?.includes("stockSize"))) && (
+                          <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                            Copied from Article 1
+                          </span>
+                        )}
                       </label>
 
                       {/* Stock Size Options */}
@@ -3997,21 +4046,10 @@ const SingleProductUpload = React.memo(() => {
                           onClick={() =>
                             handleVariantStockSizeOption(variant.id, "noSize")
                           }
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("stockSize"))
-                          }
                           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                             (variant.stockSizeOption || "sizes") === "noSize"
                               ? "bg-blue-600 text-white"
                               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                          } ${
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("stockSize"))
-                              ? "opacity-50 cursor-not-allowed"
-                              : ""
                           }`}
                         >
                           No Size
@@ -4021,21 +4059,10 @@ const SingleProductUpload = React.memo(() => {
                           onClick={() =>
                             handleVariantStockSizeOption(variant.id, "sizes")
                           }
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("stockSize"))
-                          }
                           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                             (variant.stockSizeOption || "sizes") === "sizes"
                               ? "bg-blue-600 text-white"
                               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                          } ${
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("stockSize"))
-                              ? "opacity-50 cursor-not-allowed"
-                              : ""
                           }`}
                         >
                           Add Size
@@ -4045,18 +4072,7 @@ const SingleProductUpload = React.memo(() => {
                           onClick={() =>
                             handleVariantImportExcel(variant.id, "sizes")
                           }
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("stockSize"))
-                          }
-                          className={`px-4 py-2 rounded-md text-sm font-medium bg-green-600 text-white hover:bg-green-700 transition-colors ${
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("stockSize"))
-                              ? "opacity-50 cursor-not-allowed"
-                              : ""
-                          }`}
+                          className="px-4 py-2 rounded-md text-sm font-medium bg-green-600 text-white hover:bg-green-700 transition-colors"
                         >
                           Import Excel
                         </button>
@@ -4070,18 +4086,7 @@ const SingleProductUpload = React.memo(() => {
                             onClick={() =>
                               handleVariantCustomSizeAdd(variant.id)
                             }
-                            disabled={
-                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                              (Array.isArray(nestingOptions[variant.id]) &&
-                                nestingOptions[variant.id]?.includes("stockSize"))
-                            }
-                            className={`mb-4 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors ${
-                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                              (Array.isArray(nestingOptions[variant.id]) &&
-                                nestingOptions[variant.id]?.includes("stockSize"))
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
-                            }`}
+                            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
                           >
                             Add Custom Size
                           </button>
@@ -4140,11 +4145,6 @@ const SingleProductUpload = React.memo(() => {
                                                 e.target.value
                                               )
                                             }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
-                                            }
                                             className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Size"
                                           />
@@ -4160,11 +4160,6 @@ const SingleProductUpload = React.memo(() => {
                                                 "quantity",
                                                 e.target.value
                                               )
-                                            }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
                                             }
                                             className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Qty"
@@ -4182,11 +4177,6 @@ const SingleProductUpload = React.memo(() => {
                                                 e.target.value
                                               )
                                             }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
-                                            }
                                             className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="HSN"
                                           />
@@ -4203,11 +4193,6 @@ const SingleProductUpload = React.memo(() => {
                                                 e.target.value
                                               )
                                             }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
-                                            }
                                             className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="SKU"
                                           />
@@ -4223,11 +4208,6 @@ const SingleProductUpload = React.memo(() => {
                                                 "barcode",
                                                 e.target.value
                                               )
-                                            }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
                                             }
                                             className="w-32 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Barcode"
@@ -4248,11 +4228,6 @@ const SingleProductUpload = React.memo(() => {
                                                 }
                                               )
                                             }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
-                                            }
                                             className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Price"
                                           />
@@ -4271,11 +4246,6 @@ const SingleProductUpload = React.memo(() => {
                                                   flipkart: e.target.value,
                                                 }
                                               )
-                                            }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
                                             }
                                             className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Price"
@@ -4296,11 +4266,6 @@ const SingleProductUpload = React.memo(() => {
                                                 }
                                               )
                                             }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
-                                            }
                                             className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Price"
                                           />
@@ -4320,11 +4285,6 @@ const SingleProductUpload = React.memo(() => {
                                                 }
                                               )
                                             }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
-                                            }
                                             className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Price"
                                           />
@@ -4343,11 +4303,6 @@ const SingleProductUpload = React.memo(() => {
                                                   yoraa: e.target.value,
                                                 }
                                               )
-                                            }
-                                            disabled={
-                                              nestingOptions[variant.id] === "sameAsArticle1" ||
-                                              (Array.isArray(nestingOptions[variant.id]) &&
-                                                nestingOptions[variant.id]?.includes("stockSize"))
                                             }
                                             className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
                                             placeholder="Price"
@@ -4373,17 +4328,19 @@ const SingleProductUpload = React.memo(() => {
                       <div>
                         <label className="block text-sm font-medium text-[#111111] font-['Montserrat'] mb-2">
                           Meta Title
+                          {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                            (Array.isArray(nestingOptions[variant.id]) &&
+                              nestingOptions[variant.id]?.includes("title"))) && (
+                            <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                              Copied from Article 1
+                            </span>
+                          )}
                         </label>
                         <input
                           type="text"
                           value={variant.metaTitle || ""}
                           onChange={(e) =>
                             handleVariantChange(variant.id, "metaTitle", e.target.value)
-                          }
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("title"))
                           }
                           className="w-full max-w-[400px] h-[42px] px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white font-['Montserrat']"
                           placeholder="Enter meta title for SEO"
@@ -4393,16 +4350,18 @@ const SingleProductUpload = React.memo(() => {
                       <div>
                         <label className="block text-sm font-medium text-[#111111] font-['Montserrat'] mb-2">
                           Meta Description
+                          {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                            (Array.isArray(nestingOptions[variant.id]) &&
+                              nestingOptions[variant.id]?.includes("description"))) && (
+                            <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                              Copied from Article 1
+                            </span>
+                          )}
                         </label>
                         <textarea
                           value={variant.metaDescription || ""}
                           onChange={(e) =>
                             handleVariantChange(variant.id, "metaDescription", e.target.value)
-                          }
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("description"))
                           }
                           rows={3}
                           className="w-full max-w-[400px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white font-['Montserrat']"
@@ -4413,17 +4372,19 @@ const SingleProductUpload = React.memo(() => {
                       <div>
                         <label className="block text-sm font-medium text-[#111111] font-['Montserrat'] mb-2">
                           Slug URL
+                          {(nestingOptions[variant.id] === "sameAsArticle1" ||
+                            (Array.isArray(nestingOptions[variant.id]) &&
+                              nestingOptions[variant.id]?.includes("title"))) && (
+                            <span className="ml-2 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                              Copied from Article 1
+                            </span>
+                          )}
                         </label>
                         <input
                           type="text"
                           value={variant.slugUrl || ""}
                           onChange={(e) =>
                             handleVariantChange(variant.id, "slugUrl", e.target.value)
-                          }
-                          disabled={
-                            nestingOptions[variant.id] === "sameAsArticle1" ||
-                            (Array.isArray(nestingOptions[variant.id]) &&
-                              nestingOptions[variant.id]?.includes("title"))
                           }
                           className="w-full max-w-[400px] h-[42px] px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white font-['Montserrat']"
                           placeholder="product-slug-url"

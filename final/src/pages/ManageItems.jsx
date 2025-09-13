@@ -718,7 +718,7 @@ const ManageItems = memo(() => {
   // Optimized action handlers with useCallback
   const actionHandlers = useMemo(() => {
     const handleBulkUpload = () => {
-      console.log("Bulk upload");
+      navigate("/bulk-upload");
     };
 
     const handleUploadSingleProduct = () => {

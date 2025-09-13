@@ -32,6 +32,7 @@ import UploadCategory from "./pages/UploadCategory";
 import UploadCategorySimple from "./pages/UploadCategorySimple";
 import SubCategory from "./pages/SubCategory";
 import SingleProductUpload from "./pages/SingleProductUpload";
+import BulkUpload from "./pages/bulkupload";
 import ManageReviews from "./pages/ManageReviews";
 import ReviewDetails from "./pages/ReviewDetails";
 import PushNotification from "./pages/pushNotification";
@@ -144,6 +145,10 @@ const App = () => {
           <Route
             path="/single-product-upload"
             element={<SingleProductUpload />}
+          />
+          <Route
+            path="/bulk-upload"
+            element={<BulkUpload />}
           />
 
 
